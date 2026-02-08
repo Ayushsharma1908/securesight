@@ -18,8 +18,12 @@ import {
   Volume2,
   RefreshCw,
   Radio,
-  Mic
+  Mic,
+  BarChart,
+  Bell,
+  FileText
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LiveCameraCard = ({ name, status, latency, isFocused }) => {
   const statusColors = {
@@ -90,14 +94,14 @@ const LiveCameraCard = ({ name, status, latency, isFocused }) => {
 const LiveFeed = () => {
   const [activeTab, setActiveTab] = useState("live");
   const [selectedCamera, setSelectedCamera] = useState(null);
-  const [sessionTime, setSessionTime] = useState("02:45:12");
+  const navigate = useNavigate();
 
   // Navigation items
   const navItems = [
-    { id: "dashboard", icon: Video, label: "Dashboard" },
+    { id: "dashboard", icon: BarChart, label: "Dashboard" },
     { id: "live", icon: Camera, label: "Live Feed" },
-    { id: "history", icon: Clock, label: "History Logs" },
-    { id: "alerts", icon: AlertTriangle, label: "Real-Time Alerts" },
+    { id: "history", icon: FileText, label: "History Logs" },
+    { id: "alerts", icon: Bell, label: "Real-Time Alerts" },
   ];
 
   // Handle sidebar navigation
@@ -105,8 +109,11 @@ const LiveFeed = () => {
     setActiveTab(tabId);
     if (tabId === "dashboard") {
       navigate("/dashboard");
+    } else if (tabId === "history") {
+      navigate("/historylogs");
+    } else if (tabId === "alerts") {
+      navigate("/alerts");
     }
-    // For other tabs, you would navigate to their respective pages
   };
 
   // All cameras data
@@ -152,7 +159,7 @@ const LiveFeed = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleSidebarNavigation(item.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   activeTab === item.id 
                     ? 'bg-white/10 text-white' 
@@ -168,7 +175,10 @@ const LiveFeed = () => {
 
         {/* Logout Button */}
         <div className="p-4 border-t border-gray-700">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+          <button 
+            onClick={() => navigate("/")}
+            className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+          >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Logout</span>
           </button>
@@ -195,7 +205,6 @@ const LiveFeed = () => {
 
             {/* Right: Profile & Status */}
             <div className="flex items-center gap-6">
-             
                          
               {/* Profile */}
               <div className="flex items-center gap-2">
@@ -239,7 +248,6 @@ const LiveFeed = () => {
                     key={camera.id}
                     {...camera}
                     isFocused={selectedCamera === camera.id}
-                    onFocus={() => setSelectedCamera(camera.id)}
                   />
                 ))}
               </div>

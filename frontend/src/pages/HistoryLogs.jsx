@@ -150,20 +150,6 @@ const HistoryLogs = () => {
     return incidents.slice(startIndex, endIndex);
   };
 
-  // Get status badge style
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case 'In Progress':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Escalated':
-        return 'bg-red-100 text-red-800 border-red-200';
-      case 'Resolved':
-        return 'bg-green-100 text-green-800 border-green-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
   // Get severity badge style
   const getSeverityStyle = (severity) => {
     switch (severity) {
@@ -178,6 +164,7 @@ const HistoryLogs = () => {
     }
   };
 
+  // Handle sidebar navigation
   const handleSidebarNavigation = (tabId) => {
     setActiveTab(tabId);
     if (tabId === "dashboard") {
@@ -200,7 +187,7 @@ const HistoryLogs = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-blue-900 to-blue-500 text-white flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-white-700">
+        <div className="p-6 border-b border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
               <Shield className="w-6 h-6" />
@@ -232,7 +219,7 @@ const HistoryLogs = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-wite-700">
+        <div className="p-4 border-t border-gray-700">
           <button 
             onClick={() => navigate("/")}
             className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"

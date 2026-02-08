@@ -144,7 +144,7 @@ const RealTimeAlerts = () => {
     } else if (tabId === "live") {
       navigate("/live-feed");
     } else if (tabId === "history") {
-      navigate("/history-logs");
+      navigate("/historylogs");
     }
   };
 
@@ -176,7 +176,7 @@ const RealTimeAlerts = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-blue-900 to-blue-500 text-white flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-white-700">
+        <div className="p-6 border-b border-gray-700">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
               <Shield className="w-6 h-6" />
@@ -208,7 +208,7 @@ const RealTimeAlerts = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-white-700">
+        <div className="p-4 border-t border-gray-700">
           <button 
             onClick={() => navigate("/")}
             className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"

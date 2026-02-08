@@ -120,7 +120,6 @@ const Dashboard = () => {
     { id: 2, camera: "CAM 04 - Main Gate", time: "Oct 24, 14:18:30", status: "Verifying", statusColor: "blue", type: "Unauthorized Entry", severity: "Warning" },
     { id: 3, camera: "CAM 03 - Parking Area", time: "Oct 24, 14:02:11", status: "Resolved", statusColor: "green", type: "Suspicious Activity", severity: "Medium" },
     { id: 4, camera: "CAM 01 - Main Lobby", time: "Oct 24, 13:45:22", status: "Resolved", statusColor: "green", type: "Crowd Gathering", severity: "Low" },
-
   ];
 
   // Filter incidents based on search and status
@@ -135,14 +134,15 @@ const Dashboard = () => {
     return matchesSearch && matchesStatus;
   });
 
-  const handleNavigateToLiveFeed =() => {
-    navigate("/live-feed");
-  };
-  
+  // Handle sidebar navigation
   const handleSidebarNavigation = (tabId) => {
     setActiveTab(tabId);
     if (tabId === "live") {
       navigate("/live-feed");
+    } else if (tabId === "history") {
+      navigate("/historylogs");
+    } else if (tabId === "alerts") {
+      navigate("/alerts");
     }
   };
 
@@ -184,10 +184,11 @@ const Dashboard = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-white-700">
+        <div className="p-4 border-t border-gray-700">
           <button 
-          onClick={() => navigate("/")}
-          className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+            onClick={() => navigate("/")}
+            className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+          >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Logout</span>
           </button>
@@ -233,9 +234,11 @@ const Dashboard = () => {
               <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-semibold text-gray-900">LIVE MONITORING GRID</h2>
-                  <div className="flex items-center gap-2 text-sm text-blue-500 cursor-pointer"
-                  onClick={() => navigate("/live-feed")}>
-                    <Eye className="w-4 h-4 " />
+                  <div 
+                    className="flex items-center gap-2 text-sm text-blue-500 cursor-pointer hover:text-blue-700"
+                    onClick={() => navigate("/live-feed")}
+                  >
+                    <Eye className="w-4 h-4" />
                     <span>See more feed</span>
                   </div>
                 </div>
@@ -376,7 +379,10 @@ const Dashboard = () => {
                   Showing <span className="font-semibold text-gray-700">{filteredIncidents.length}</span> of <span className="font-semibold text-gray-700">{incidents.length}</span> incidents
                 </div>
                 
-                <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2">
+                <button 
+                  className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
+                  onClick={() => navigate("/history-logs")}
+                >
                   <Eye className="w-4 h-4" />
                   View Full Logs
                 </button>
