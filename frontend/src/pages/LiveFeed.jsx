@@ -186,34 +186,14 @@ const LiveFeed = () => {
                   <Grid3x3 className="w-4 h-4" />
                   <span>Grid View: 3×3 Active</span>
                 </div>
-                <span>•</span>
-                <div className="flex items-center gap-2">
-                  <Wifi className="w-4 h-4" />
-                  <span>Latency: 12ms</span>
-                </div>
+                
               </div>
             </div>
 
             {/* Right: Profile & Status */}
             <div className="flex items-center gap-6">
-              {/* Archive Mode */}
-              <div className="flex items-center gap-2 bg-blue-50 px-3 py-2 rounded-lg">
-                <Archive className="w-4 h-4 text-blue-600" />
-                <div className="text-sm">
-                  <span className="font-medium text-blue-700">Archive Mode</span>
-                  <p className="text-xs text-blue-500">Real-time Auto-save Enabled</p>
-                </div>
-              </div>
-              
-              {/* Session Time */}
-              <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
-                <Clock className="w-4 h-4 text-gray-600" />
-                <div>
-                  <span className="font-medium text-gray-700">SESSION TIME</span>
-                  <p className="text-sm font-bold text-gray-900">{sessionTime}</p>
-                </div>
-              </div>
-              
+             
+                         
               {/* Profile */}
               <div className="flex items-center gap-2">
                 <div className="text-right">
@@ -247,14 +227,7 @@ const LiveFeed = () => {
               </div>
               
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium transition-colors">
-                  <Radio className="w-4 h-4" /> {/* Changed from Broadcast to Radio */}
-                  BROADCAST EMERGENCY
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
-                  <FolderOpen className="w-4 h-4" />
-                  BROWSE
-                </button>
+                
                 <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
                   <Filter className="w-4 h-4" />
                   FILTERS
@@ -316,25 +289,7 @@ const LiveFeed = () => {
                 </div>
               </div>
 
-              {/* Network Stats */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Network Performance</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Average Latency</span>
-                    <span className="font-semibold text-gray-900">12ms</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Bandwidth Usage</span>
-                    <span className="font-semibold text-green-600">68%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-700">Uptime</span>
-                    <span className="font-semibold text-green-600">99.8%</span>
-                  </div>
-                </div>
-              </div>
-
+              
               {/* Quick Actions */}
               <div>
                 <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
@@ -342,14 +297,6 @@ const LiveFeed = () => {
                   <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors">
                     <RefreshCw className="w-4 h-4" />
                     Refresh All Feeds
-                  </button>
-                  <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
-                    <Archive className="w-4 h-4" />
-                    Export Session Logs
-                  </button>
-                  <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
-                    <Settings className="w-4 h-4" />
-                    Camera Settings
                   </button>
                 </div>
               </div>
