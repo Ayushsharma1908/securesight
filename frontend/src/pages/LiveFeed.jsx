@@ -57,18 +57,15 @@ const LiveCameraCard = ({ name, status, latency, isFocused }) => {
             backgroundSize: '20px 20px'
           }}></div>
           
-          {/* Simulated moving objects */}
-          <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-blue-500 rounded-full animate-ping opacity-50"></div>
-          <div className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-red-500 rounded-full animate-ping opacity-50"></div>
+          {/* Simulated moving objects */}{/*this is only when we find objects moving*/}
+          {/* <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-blue-500 rounded-full animate-ping opacity-50"></div> */}
+          {/* <div className="absolute bottom-1/3 right-1/3 w-3 h-3 bg-red-500 rounded-full animate-ping opacity-50"></div> */}
         </div>
         
         {/* Camera controls overlay */}
         <div className="absolute bottom-2 right-2 flex gap-2">
           <button className="p-1.5 bg-black/50 text-white rounded hover:bg-black/70">
             <Maximize2 className="w-3 h-3" />
-          </button>
-          <button className="p-1.5 bg-black/50 text-white rounded hover:bg-black/70">
-            <Volume2 className="w-3 h-3" />
           </button>
         </div>
         
@@ -105,6 +102,15 @@ const LiveFeed = () => {
     { id: "history", icon: Clock, label: "History Logs" },
     { id: "alerts", icon: AlertTriangle, label: "Real-Time Alerts" },
   ];
+
+  // Handle sidebar navigation
+  const handleSidebarNavigation = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === "dashboard") {
+      navigate("/dashboard");
+    }
+    // For other tabs, you would navigate to their respective pages
+  };
 
   // All cameras data
   const allCameras = [
@@ -226,13 +232,7 @@ const LiveFeed = () => {
                 <p className="text-sm text-gray-500 mt-1">Live monitoring of all security cameras</p>
               </div>
               
-              <div className="flex items-center gap-3">
-                
-                <button className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-colors">
-                  <Filter className="w-4 h-4" />
-                  FILTERS
-                </button>
-              </div>
+              
             </div>
           </div>
 
