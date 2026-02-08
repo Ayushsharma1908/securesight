@@ -40,10 +40,7 @@ const LiveCameraCard = ({ name, status, latency, isFocused }) => {
             </span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Wifi className="w-3 h-3 text-gray-400" />
-          <span className="text-xs text-gray-500">{latency}ms</span>
-        </div>
+        
       </div>
       
       {/* Camera Feed */}
@@ -214,9 +211,6 @@ const LiveFeed = () => {
                 </div>
               </div>
               
-              <button className="p-2 text-gray-500 hover:text-gray-700">
-                <Settings className="w-5 h-5" />
-              </button>
             </div>
           </div>
         </header>
