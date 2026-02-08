@@ -21,14 +21,14 @@ import {
   Eye,
   MoreVertical
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const CameraCard = ({ name, temperature, alert, alertType }) => {
+const CameraCard = ({ name, alert, alertType }) => {
   return (
     <div className={`border rounded-xl p-4 transition-all duration-200 ${alert ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}>
       <div className="flex justify-between items-start mb-3">
         <div>
           <h3 className="font-semibold text-gray-900 text-sm">{name}</h3>
-          <p className="text-2xl font-bold text-gray-800 mt-1">{temperature}°C</p>
         </div>
         <div className={`w-3 h-3 rounded-full ${alert ? 'bg-red-500 animate-pulse' : 'bg-green-500'}`}></div>
       </div>
@@ -57,7 +57,7 @@ const CameraCard = ({ name, temperature, alert, alertType }) => {
           {alert ? 'ALERT' : 'ACTIVE'}
         </span>
         <button className="text-xs font-medium text-blue-600 hover:text-blue-800 flex items-center gap-1">
-          DISPATCH
+          More Details
           <ArrowRight className="w-3 h-3" />
         </button>
       </div>
@@ -84,6 +84,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const navigate = useNavigate();
 
   // Sidebar navigation items
   const navItems = [
@@ -95,10 +96,10 @@ const Dashboard = () => {
 
   // Camera data
   const cameras = [
-    { id: 1, name: "CAM01-LOBBY", temperature: "22.491", alert: false },
-    { id: 2, name: "CAM02-CORRIDOR", temperature: "23.014", alert: true, alertType: "FIGHT DETECTED" },
-    { id: 3, name: "CAM03-PARKING", temperature: "21.856", alert: false },
-    { id: 4, name: "CAM04-GATE", temperature: "22.312", alert: false },
+    { id: 1, name: "CAM01-LOBBY", alert: false },
+    { id: 2, name: "CAM02-CORRIDOR", alert: true, alertType: "FIGHT DETECTED" },
+    { id: 3, name: "CAM03-PARKING",  alert: false },
+    { id: 4, name: "CAM04-GATE",  alert: false },
   ];
 
   // Alerts data
@@ -119,10 +120,7 @@ const Dashboard = () => {
     { id: 2, camera: "CAM 04 - Main Gate", time: "Oct 24, 14:18:30", status: "Verifying", statusColor: "blue", type: "Unauthorized Entry", severity: "Warning" },
     { id: 3, camera: "CAM 03 - Parking Area", time: "Oct 24, 14:02:11", status: "Resolved", statusColor: "green", type: "Suspicious Activity", severity: "Medium" },
     { id: 4, camera: "CAM 01 - Main Lobby", time: "Oct 24, 13:45:22", status: "Resolved", statusColor: "green", type: "Crowd Gathering", severity: "Low" },
-    { id: 5, camera: "CAM 02 - Hostel Corridor", time: "Oct 24, 13:30:15", status: "Resolved", statusColor: "green", type: "Noise Disturbance", severity: "Low" },
-    { id: 6, camera: "CAM 05 - Cafeteria", time: "Oct 24, 13:15:42", status: "In Progress", statusColor: "orange", type: "Equipment Tampering", severity: "High" },
-    { id: 7, camera: "CAM 04 - Main Gate", time: "Oct 24, 13:00:18", status: "Verifying", statusColor: "blue", type: "Access Violation", severity: "Critical" },
-    { id: 8, camera: "CAM 03 - Parking Area", time: "Oct 24, 12:45:33", status: "Resolved", statusColor: "green", type: "Vehicle Theft Attempt", severity: "Critical" },
+
   ];
 
   // Filter incidents based on search and status
@@ -137,12 +135,16 @@ const Dashboard = () => {
     return matchesSearch && matchesStatus;
   });
 
-  const statusFilters = [
-    { id: "all", label: "All", color: "gray" },
-    { id: "in progress", label: "In Progress", color: "orange" },
-    { id: "verifying", label: "Verifying", color: "blue" },
-    { id: "resolved", label: "Resolved", color: "green" },
-  ];
+  const handleNavigateToLiveFeed =() => {
+    navigate("/live-feed");
+  };
+  
+  const handleSidebarNavigation = (tabId) => {
+    setActiveTab(tabId);
+    if (tabId === "live") {
+      navigate("/live-feed");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans flex">
@@ -167,7 +169,7 @@ const Dashboard = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleSidebarNavigation(item.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   activeTab === item.id 
                     ? 'bg-white/10 text-white' 
@@ -182,8 +184,10 @@ const Dashboard = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-gray-700">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+        <div className="p-4 border-t border-white-700">
+          <button 
+          onClick={() => navigate("/")}
+          className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Logout</span>
           </button>
@@ -215,9 +219,7 @@ const Dashboard = () => {
                   SO
                 </div>
               </div>
-              <button className="p-2 text-gray-500 hover:text-gray-700">
-                <Settings className="w-5 h-5" />
-              </button>
+              
             </div>
           </div>
         </header>
@@ -231,9 +233,10 @@ const Dashboard = () => {
               <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-lg font-semibold text-gray-900">LIVE MONITORING GRID</h2>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Camera className="w-4 h-4" />
-                    <span>4 Cameras Active</span>
+                  <div className="flex items-center gap-2 text-sm text-blue-500 cursor-pointer"
+                  onClick={() => navigate("/live-feed")}>
+                    <Eye className="w-4 h-4 " />
+                    <span>See more feed</span>
                   </div>
                 </div>
 
@@ -310,23 +313,6 @@ const Dashboard = () => {
                   </div>
                   
                   <div className="flex gap-2">
-                    {/* Status Filters */}
-                    <div className="flex gap-2">
-                      {statusFilters.map((filter) => (
-                        <button
-                          key={filter.id}
-                          onClick={() => setStatusFilter(filter.id)}
-                          className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                            statusFilter === filter.id
-                              ? `bg-${filter.color}-600 text-white`
-                              : `bg-${filter.color}-100 text-${filter.color}-700 hover:bg-${filter.color}-200`
-                          }`}
-                        >
-                          {filter.label}
-                        </button>
-                      ))}
-                    </div>
-                    
                     <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
                       <Download className="w-4 h-4" />
                       Export CSV
@@ -344,8 +330,6 @@ const Dashboard = () => {
                       <th className="text-left p-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">INCIDENT TYPE</th>
                       <th className="text-left p-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">SEVERITY</th>
                       <th className="text-left p-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">TIMESTAMP</th>
-                      <th className="text-left p-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">CURRENT STATUS</th>
-                      <th className="text-left p-4 text-xs font-semibold text-gray-700 uppercase tracking-wider">ACTIONS</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -380,25 +364,6 @@ const Dashboard = () => {
                             <span className="text-gray-600">{incident.time}</span>
                           </div>
                         </td>
-                        <td className="p-4">
-                          <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium ${
-                            incident.statusColor === 'green' ? 'bg-green-100 text-green-700 border border-green-200' :
-                            incident.statusColor === 'orange' ? 'bg-orange-100 text-orange-700 border border-orange-200' :
-                            'bg-blue-100 text-blue-700 border border-blue-200'
-                          }`}>
-                            {incident.statusColor === 'green' ? <CheckCircle className="w-4 h-4" /> :
-                             incident.statusColor === 'orange' ? <Activity className="w-4 h-4" /> :
-                             <Clock className="w-4 h-4" />}
-                            {incident.status}
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
-                            <button className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-50 rounded-lg transition-colors">
-                              <MoreVertical className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -409,20 +374,6 @@ const Dashboard = () => {
               <div className="mt-6 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div className="text-sm text-gray-500">
                   Showing <span className="font-semibold text-gray-700">{filteredIncidents.length}</span> of <span className="font-semibold text-gray-700">{incidents.length}</span> incidents
-                </div>
-                
-                <div className="flex items-center gap-4">
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-sm font-medium">
-                    Previous
-                  </button>
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm">1</span>
-                    <span className="px-3 py-1 text-gray-600 hover:text-gray-900 cursor-pointer text-sm">2</span>
-                    <span className="px-3 py-1 text-gray-600 hover:text-gray-900 cursor-pointer text-sm">3</span>
-                  </div>
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 text-sm font-medium">
-                    Next
-                  </button>
                 </div>
                 
                 <button className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2">
