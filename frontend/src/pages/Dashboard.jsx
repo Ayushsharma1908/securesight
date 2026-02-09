@@ -152,7 +152,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-blue-900 to-blue-500 text-white flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-gray-700">
+        <div className="p-6 border-b border-white-500">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
               <Shield className="w-6 h-6" />
@@ -184,7 +184,7 @@ const Dashboard = () => {
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4 border-t border-white-500">
           <button 
             onClick={() => navigate("/")}
             className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
@@ -381,7 +381,7 @@ const Dashboard = () => {
                 
                 <button 
                   className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2"
-                  onClick={() => navigate("/history-logs")}
+                  onClick={() => navigate("/historylogs")}
                 >
                   <Eye className="w-4 h-4" />
                   View Full Logs
