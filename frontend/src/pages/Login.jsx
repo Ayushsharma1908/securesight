@@ -255,7 +255,6 @@ export default function Login() {
             )}
           </form>
         </div>
-
         {/* Footer */}
         <div className="mt-6 text-center">
           <div className="inline-flex gap-6 text-xs text-gray-400">
